@@ -1,0 +1,61 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "apiName": {
+            "type": "string"
+        },
+        "apiPath": {
+            "type": "string"
+        },
+        "apiBackend": {
+            "type": "string"
+        },
+        "apiManagementServiceName": {
+            "type": "string"
+        },
+        "apiSwagger": {
+            "type": "string",
+            "minLength": 1
+        },
+        "apiPolicy": {
+            "type": "string",
+            "minLength": 1
+        }
+    },
+    "variables": {
+        "apiResourceName": "[concat(parameters('apiManagementServiceName'),'/',parameters('apiName'))]",
+        "apiResourceId": "[concat('Microsoft.ApiManagement/service/',parameters('apiManagementServiceName'),'/apis/',parameters('apiName'))]"
+    },
+    "resources": [{
+        "type": "Microsoft.ApiManagement/service/apis",
+        "apiVersion": "2018-01-01",
+
+        "name": "[variables('apiResourceName')]",
+
+        "properties": {
+            "serviceUrl": "[parameters('apiBackend')]",
+            "path": "[parameters('apiPath')]",
+
+            "contentValue": "[parameters('apiSwagger')]",
+            "contentFormat": "swagger-json"
+        },
+        "resources": [
+            {
+                "type": "policies",
+                "apiVersion": "2018-01-01",
+
+                "name": "policy",
+                
+                "properties": {
+                    "policyContent": "[parameters('apiPolicy')]",
+                    "contentFormat": "xml"
+                },
+
+                "dependsOn": [
+                    "[variables('apiResourceId')]"
+                ]
+            }
+        ]
+    }]
+}

@@ -1,0 +1,18 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "apiName": {
+            "value": "DemoDevOpsApi"
+        },
+        "apiPath": {
+            "value": "devopsdemo"
+        },
+        "apiBackend": {
+            "value": "https://ui.scott.ms/"
+        },
+        "apiManagementServiceName": {
+            "value": "scdemo1"
+        }
+    }
+}
