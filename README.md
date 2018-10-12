@@ -1,6 +1,6 @@
 # API Management Split Template Example
 
-A quick example of splitting up swagger, policy, and template within a deployment.
+A quick example of splitting up swagger, policy, and template within a deployment, using file based environment parameters.
 
 - `swagger.json` - API Swagger Def
 - `policy.xml` - API Level Policy
